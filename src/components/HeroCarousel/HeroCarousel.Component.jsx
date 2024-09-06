@@ -3,7 +3,7 @@ import HeroSlider from "react-slick";
 import { NextArrow, PrevArrow } from './Arrows.Component';
 
 const HeroCarousel = () => {
-  const[images] = useState([ 
+  const[images ] = useState([ 
     {
       "adult": false,
       "backdrop_path": "/jZIYaISP3GBSrVOPfrp98AMa8Ng.jpg",
@@ -94,7 +94,7 @@ const settingsLG = {
   slidesToScroll: 1,
   initialSlide: 0,
   autoplay: true,
- // speed: 2000,
+  //speed: 2000,
   autoplaySpeed: 2000,
   cssEase: "linear",
   nextArrow: <NextArrow />,
@@ -110,7 +110,7 @@ const settings = {
   slidesToScroll: 1,
   initialSlide: 0,
   autoplay: true,
-//  speed: 2000,
+  //speed: 2000,
   autoplaySpeed: 2000,
   cssEase: "linear",
   nextArrow: <NextArrow />,
@@ -130,7 +130,7 @@ const settings = {
         }
       </HeroSlider>
     </div>
-    <div className='hidden lg:block'></div>
+    <div className='hidden lg:block'>
     <HeroSlider {...settingsLG}>
         {
           images.map((images,index)=>(
@@ -139,7 +139,8 @@ const settings = {
             </div>
           ))
         }
-      </HeroSlider>
+    </HeroSlider>
+    </div>
    </>
   )
 }

@@ -8,8 +8,8 @@ const EntertainmentCard = (props) =>{
         <img src={props.src} alt="entertainment" className='w-full h-full rounded-lg'  />
       </div>
     </>
-  )
-}
+  );
+};
 
 const EntertainmentCardSlider = () => {
   const EntertainmentImage = [
@@ -34,6 +34,30 @@ const EntertainmentCardSlider = () => {
     slidesToShow:5,
     slidesToScroll:4,
     initialslide:0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -47,4 +71,4 @@ const EntertainmentCardSlider = () => {
   )
 }
 
-export default EntertainmentCardSlider
+export default EntertainmentCardSlider;

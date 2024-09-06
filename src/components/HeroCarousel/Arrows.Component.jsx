@@ -3,7 +3,7 @@ import React from 'react';
 export function NextArrow(props){
     return (
         <>
-            <div className={props.className} style={{...props.style}} onclick={props.onclick}/>
+            <div className={props.className} style={{...props.style}} onClick={props.onClick} />
 
             
         </>
@@ -13,7 +13,7 @@ export function NextArrow(props){
 export function PrevArrow(props){
     return (
         <>
-            <div className={props.className} style={{...props.style}} onclick={props.onclick}/>
+            <div className={props.className} style={{...props.style}} onClick={props.onClick} />
 
            
         </>

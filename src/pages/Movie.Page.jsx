@@ -2,33 +2,35 @@ import React, { useEffect, useState, useContext } from "react";
 import MovieLayoutHoc from "../layout/Movie.layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { MovieContext } from "../context/Movie.context";
+
 import Slider from "react-slick";
 import { FaCcVisa, FaCcApplePay } from "react-icons/fa";
 import PosterSlider from "../components/PosterSlider/PosterSlider.Component";
-import MovieHero from "../MovieHero/MovieHero.Component";
 import Cast from "../components/Cast/Cast.Component";
+import MovieHero from "../components/MovieHero/MovieHero.Component";
+import { MovieContext } from "../Context/Movie.Context";
+
 
 
 
 const MoviePage = () => {
   const {id} = useParams();
   const {movie, setMovie} = useContext(MovieContext)
-  const [cast, setCast] = useState();
-  const [similarMovies, setSimilarMovies] = useState();
-  const [recommendedMovies,setRecommendedMovies] = useState();
+  const [cast, setCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [recommendedMovies,setRecommendedMovies] = useState([]);
 
   useEffect(()=>{
     const requestCast = async() => {
-      const getCast = await axios.get("https://api.themoviedb.org/3/movie/${id}/credits?api_key=ca72e8099911da8ccdd05570fe61f194");
-      setCast(getCast.data.cast)
+      const getCast = await axios.get(`/movie/${id}/credits`);
+      setCast(getCast.data.cast);
     }
     requestCast();
   },[id])
 
   useEffect(()=>{
     const requestSimilarMovies = async() => {
-      const getSimilarMovies = await axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=ca72e8099911da8ccdd05570fe61f194`);
+      const getSimilarMovies = await axios.get(`/movie/${id}/similar`);
       setCast(getSimilarMovies.data.results)
     }
     requestSimilarMovies();
@@ -36,7 +38,7 @@ const MoviePage = () => {
 
   useEffect(()=>{
     const requestRecommendedMovies = async() => {
-      const getRecommendedMovies = await axios.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=ca72e8099911da8ccdd05570fe61f194`);
+      const getRecommendedMovies = await axios.get(`/movie/${id}/recommendations`);
       setCast(getRecommendedMovies.data.results)
     }
     requestRecommendedMovies();
@@ -44,18 +46,42 @@ const MoviePage = () => {
 
   useEffect(()=>{
     const requestMovie = async () => {
-      const getMovieData = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=ca72e8099911da8ccdd05570fe61f194`)
+      const getMovieData = await axios.get(`/movie/${id}`);
       setMovie(getMovieData.data)
     }
     requestMovie();
-  }, [id])
+  },[id])
 
-  const settingsCast ={
+  const settingCast ={
     infinite:false,
     autoplay:false,
     slidesToShow:5,
     slidesToScroll:4,
     initialslide:0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const settings = {
@@ -64,6 +90,31 @@ const MoviePage = () => {
     slidesToShow:5,
     slidesToScroll:4,
     initialslide:0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 3,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 4,
+        },
+      },
+    ],
   };
 
 
@@ -110,40 +161,50 @@ const MoviePage = () => {
           <hr/>
         </div>
 
-        <div className='my-8'>
-          <h2 className="tex-gray-800 font-bold text-2xl mb-4">Cast and Crew</h2>
-          {/*<Slider {...settingsCast}>
-            {cast.map((castData) =>(
-              <Cast image={castData.profile_path} castName={castData.original_name} role={castData.character} />
+        {/* Cast Slider */}
+        <div className="my-8">
+          <h2 className="text-gray-800 font-bold text-2xl mb-4">
+            Cast and Crew
+          </h2>
+          <Slider {...settingCast}>
+            {cast.map((castData) => (
+              <Cast
+                image={castData.profile_path}
+                castName={castData.original_name}
+                role={castData.character}
+              />
             ))}
-          </Slider>*/}
+          </Slider>
         </div>
 
-        <div className='my-8'>
-          <hr/>
+        <div className="my-8">
+          <hr />
         </div>
 
-        <div className='my-8'>
-          <h1>Recommended Movies</h1>
-          
+        {/* recommended movies slider */}
+        <div className="my-8">
+          <PosterSlider
+            config={settings}
+            title="Recommended Movies"
+            posters={recommendedMovies}
+            isDark={false}
+          />
         </div>
 
-        <div className='my-8'>
-          <hr/>
+        <div className="my-8">
+          <hr />
         </div>
 
-        <div className='my-8'>
-          <h1>BMS XCLUSICE</h1>
-        </div>
-
-        <div className='my-8'>
-          <hr/>
-        </div>
-
-
+        {/* recommended movies slider */}
+        <PosterSlider
+          config={settings}
+          title="BMS XCLUSICE"
+          posters={recommendedMovies}
+          isDark={false}
+        />
       </div>
     </>
-  )
-}
+  );
+};
 
 export default MovieLayoutHoc(MoviePage)

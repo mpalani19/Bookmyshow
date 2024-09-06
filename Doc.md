@@ -43,3 +43,5 @@
     >> npmjs.com/package/axios
     >> https://headlessui.com/react/dialog
     >> https://react-icons.github.io/react-icons/
+
+    >>https://razorpay.com/docs/payments/payments/test-card-details/

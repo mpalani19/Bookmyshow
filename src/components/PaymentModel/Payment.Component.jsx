@@ -9,7 +9,7 @@ const PaymentModel = ({ setIsOpen, isOpen, price }) => {
 
   const launchRazorPay = () => {
     let options = {
-      key: "rzp_test_Taf4Olo2TluDGc",
+      key: "rzp_test_VHkuavW8pA6upL",
       amount: price * 100,
       currency: "INR",
       name: "Book My Show Clone",
@@ -80,7 +80,7 @@ const PaymentModel = ({ setIsOpen, isOpen, price }) => {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Cancle Payment
+                      Cancel Payment
                     </button>
                   </div>
                 </Dialog.Panel>

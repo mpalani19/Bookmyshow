@@ -13,7 +13,22 @@ const MovieProvider = ({children}) => {
         poster_path: ""
     })
 
-  return <MovieContext.Provider value={{movie,setMovie}}>{children}</MovieContext.Provider>
-}
+  const [isOpen, setIsOpen] = useState(false);
+  const [price, setPrice] = useState(0);
+
+  const rentMovie = () => {
+    setIsOpen(true);
+    setPrice(149);
+  };
+
+  const buyMovie = () => {
+    setIsOpen(true);
+    setPrice(599);
+  };
+
+
+
+  return (<MovieContext.Provider value={{movie,setMovie, isOpen,setIsOpen,price,setPrice,rentMovie,buyMovie,}}>{children}</MovieContext.Provider>
+)}
 
 export default MovieProvider
